@@ -5,12 +5,14 @@ publish: test git-push
 git-push:
 	git push
 
+setup:
+	cp ./.env.example ./.env
+
 up:
 	cp ./.env.example ./.env
 	docker-compose up -d
 
 dev:
-	cp ./.env.example ./.env
 	go run ./src
 
 test:

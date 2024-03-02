@@ -2,7 +2,9 @@ package main
 
 import (
 	"log"
+	"strconv"
 
+	"golang-url-shortener/src/config"
 	"golang-url-shortener/src/databases"
 	"golang-url-shortener/src/repositories"
 	"golang-url-shortener/src/routes"
@@ -13,11 +15,18 @@ import (
 )
 
 func main() {
+	config, err := config.New()
+
+	if err != nil {
+		log.Fatalf("Failed loading config frome env: %v\n", err)
+	}
+
 	r := gin.Default()
 
 	redis := redis.NewClient(&redis.Options{
-		Addr:     "locahost:6379",
-		Password: "123456",
+		Addr:     config.REDIS_ADDRESS,
+		Password: config.REDIS_PASSWORD,
+		DB:       config.REDIS_DATABASE,
 	})
 
 	if err := redis.Ping().Err(); err != nil {
@@ -30,7 +39,7 @@ func main() {
 
 	routes.AddShortenerRoutes(&r.RouterGroup, shortenerService)
 
-	if err := r.Run("0.0.0.0:80"); err != nil {
+	if err := r.Run(":" + strconv.Itoa(config.PORT)); err != nil {
 		log.Fatalf("Failed to run")
 	}
 }
