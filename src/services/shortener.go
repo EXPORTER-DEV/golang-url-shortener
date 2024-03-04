@@ -1,6 +1,8 @@
 package services
 
 import (
+	"fmt"
+	"golang-url-shortener/src/common"
 	"golang-url-shortener/src/entity"
 	"golang-url-shortener/src/repositories"
 )
@@ -15,11 +17,21 @@ type ShortenerService struct {
 }
 
 func (s *ShortenerService) Create(value string) (res *entity.ShortLink, err error) {
+	exists, err := s.repository.GetByShortLink(value)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed while lookup existing shortlink in storage: %w", common.ErrDatabase)
+	}
+
+	if exists != nil {
+		return nil, fmt.Errorf("short link already exists in database: %w", common.ErrDuplicate)
+	}
+
 	return s.repository.AddShortLink(value)
 }
 
 func (s *ShortenerService) Get(key string) (res *entity.ShortLink, err error) {
-	return s.repository.GetByShortLink(key)
+	return s.repository.GetByKey(key)
 }
 
 func NewShortenerService(repository repositories.ShortenerRepositoryInterface) ShortenerServiceInterface {

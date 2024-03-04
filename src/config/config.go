@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"path/filepath"
 
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/joho/godotenv"
@@ -33,7 +34,22 @@ func New() (*Config, error) {
 	config := Config{}
 
 	if os.Getenv("ENVIRONMENT") == "" {
-		godotenv.Load("../.env")
+		wd, err := os.Getwd()
+
+		if err != nil {
+			return nil, err
+		}
+
+		var path string
+
+		// Need following hack to run via VS Code profile, where working directory is src:
+		if filepath.Base(wd) == "src" {
+			path = filepath.Join(wd, "../.env")
+		} else {
+			path = filepath.Join(wd, ".env")
+		}
+
+		godotenv.Load(path)
 	}
 
 	err := cleanenv.ReadEnv(&config)

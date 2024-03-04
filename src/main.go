@@ -29,6 +29,8 @@ func main() {
 		DB:       config.REDIS_DATABASE,
 	})
 
+	defer redis.Close()
+
 	if err := redis.Ping().Err(); err != nil {
 		log.Fatal("Failed to connect redis", err)
 	}
@@ -38,6 +40,7 @@ func main() {
 	shortenerService := services.NewShortenerService(shortenerRepository)
 
 	routes.AddShortenerRoutes(&r.RouterGroup, shortenerService)
+	routes.AddRedirectRoutes(&r.RouterGroup, shortenerService)
 
 	if err := r.Run(":" + strconv.Itoa(config.PORT)); err != nil {
 		log.Fatalf("Failed to run")

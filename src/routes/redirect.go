@@ -1,11 +1,29 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"golang-url-shortener/src/services"
 
-func AddRedirectRoutes(router *gin.RouterGroup) {
-	r := router.Group("/r/")
+	"github.com/gin-gonic/gin"
+)
 
-	r.GET("*", func(ctx *gin.Context) {
-		// path := ctx.Request.URL.Path
+func AddRedirectRoutes(router *gin.RouterGroup, service services.ShortenerServiceInterface) {
+	r := router.Group("/r")
+
+	r.GET(":key", func(ctx *gin.Context) {
+		key := ctx.Param("key")
+
+		shortLink, err := service.Get(key)
+
+		if err != nil {
+			ctx.JSON(500, NewErrorResponse("Failed while check short link in storage"))
+			return
+		}
+
+		if shortLink == nil {
+			ctx.JSON(400, NewErrorResponse("Not found"))
+			return
+		}
+
+		ctx.Redirect(302, *shortLink.Value)
 	})
 }
