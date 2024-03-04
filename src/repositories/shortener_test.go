@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"golang-url-shortener/src/databases"
-	"golang-url-shortener/src/entity"
+	"golang-url-shortener/databases"
+	"golang-url-shortener/entity"
 	"testing"
 )
 

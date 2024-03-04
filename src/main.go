@@ -4,11 +4,11 @@ import (
 	"log"
 	"strconv"
 
-	"golang-url-shortener/src/config"
-	"golang-url-shortener/src/databases"
-	"golang-url-shortener/src/repositories"
-	"golang-url-shortener/src/routes"
-	"golang-url-shortener/src/services"
+	"golang-url-shortener/config"
+	"golang-url-shortener/databases"
+	"golang-url-shortener/repositories"
+	"golang-url-shortener/routes"
+	"golang-url-shortener/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"

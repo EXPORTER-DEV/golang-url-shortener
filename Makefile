@@ -1,19 +1,21 @@
-.PHONY=up test
+.PHONY=publish up git-push setup docker-up dev test
 
 publish: test git-push
+up: setup docker-up
 
 git-push:
 	git push
 
 setup:
+	cp ./.env.redis.example ./.env.redis
 	cp ./.env.example ./.env
+	mkdir -p ./redis
 
-up:
-	cp ./.env.example ./.env
+docker-up:
 	docker-compose up -d
 
 dev:
-	go run ./src
+	cd ./src/; go run .
 
 test:
-	go test ./... -v
+	cd ./src/; go test ./... -v

@@ -2,8 +2,8 @@ package routes
 
 import (
 	"errors"
-	"golang-url-shortener/src/common"
-	"golang-url-shortener/src/services"
+	"golang-url-shortener/common"
+	"golang-url-shortener/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

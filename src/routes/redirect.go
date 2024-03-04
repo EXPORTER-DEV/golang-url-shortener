@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"golang-url-shortener/src/services"
+	"golang-url-shortener/services"
 
 	"github.com/gin-gonic/gin"
 )

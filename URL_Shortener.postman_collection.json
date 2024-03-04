@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "3c727d4c-915b-4933-a82c-478b05beedff",
+		"name": "URL Shortener",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19039066"
+	},
+	"item": [
+		{
+			"name": "Create new short link",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"value\": \"https://yandex.ru/\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:80/shortener",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"shortener"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create new short link",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"value\": \"https://yandex.ru/\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:80/shortener/",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"shortener",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Mar 2024 16:48:21 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "96"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": false,\n    \"data\": {\n        \"id\": \"77fca5950e249d66b4e8bc9761ffdc7a6a5b31c619babcbdad4dd8ff4aaa5f50\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Redirect with ID from short link creation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:80/r/{{ShortLinkID}}",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"r",
+						"{{ShortLinkID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Redirect with ID from short link creation",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:80/r/{{ShortLinkID}}",
+							"host": [
+								"localhost"
+							],
+							"port": "80",
+							"path": [
+								"r",
+								"{{ShortLinkID}}"
+							]
+						}
+					},
+					"status": "Found",
+					"code": 302,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Location",
+							"value": "https://yandex.ru/"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Mar 2024 16:50:02 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "41"
+						}
+					],
+					"cookie": [],
+					"body": "<a href=\"https://yandex.ru/\">Found</a>."
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "ShortLinkID",
+			"value": "77fca5950e249d66b4e8bc9761ffdc7a6a5b31c619babcbdad4dd8ff4aaa5f50"
+		}
+	]
+}

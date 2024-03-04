@@ -2,9 +2,9 @@ package services
 
 import (
 	"fmt"
-	"golang-url-shortener/src/common"
-	"golang-url-shortener/src/entity"
-	"golang-url-shortener/src/repositories"
+	"golang-url-shortener/common"
+	"golang-url-shortener/entity"
+	"golang-url-shortener/repositories"
 )
 
 type ShortenerServiceInterface interface {

@@ -1,0 +1,19 @@
+version: "3.2"
+services:
+  redis_url_shortener:
+    image: bitnami/redis:latest
+    container_name: redis_url_shortener
+    restart: always
+    env_file: .env.redis
+    volumes:
+      - ./redis:/bitnami/redis
+  url_shortener_service:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: url_shortener_service
+    restart: always
+    env_file: .env
+    ports:
+      - 80:80
+    
